@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mysa — Co-op Onboarding Checklist</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --mysa-red: #F24E4E;
+    --mysa-purple: #A259FF;
+    --mysa-blue: #3B82F6;
+    --mysa-light-blue: #93C5FD;
+    --bg: #F8F9FC;
+    --surface: #FFFFFF;
+    --border: #E8EAF0;
+    --text-primary: #1A1D2E;
+    --text-secondary: #6B7280;
+    --text-muted: #9CA3AF;
+    --success: #10B981;
+    --success-bg: #ECFDF5;
+    --success-border: #A7F3D0;
+    --radius: 12px;
+    --radius-sm: 8px;
+  }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--text-primary);
+    min-height: 100vh;
+    padding: 0 0 80px 0;
+  }
+
+  /* Header */
+  .header {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 28px 40px 24px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+  }
+
+  .header-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .logo-text {
+    font-family: 'Nunito', sans-serif;
+    font-weight: 800;
+    font-size: 22px;
+    color: #555555;
+    letter-spacing: -0.5px;
+    line-height: 1;
+  }
+
+  .header-subtitle {
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin-top: 1px;
+  }
+
+  /* Progress */
+  .progress-area {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-shrink: 0;
+  }
+
+  .progress-label {
+    font-size: 13px;
+    color: var(--text-secondary);
+    white-space: nowrap;
+  }
+
+  .progress-label strong {
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+
+  .progress-bar-wrap {
+    width: 180px;
+    height: 6px;
+    background: var(--border);
+    border-radius: 99px;
+    overflow: hidden;
+  }
+
+  .progress-bar-fill {
+    height: 100%;
+    border-radius: 99px;
+    background: linear-gradient(90deg, var(--mysa-red), var(--mysa-purple), var(--mysa-blue));
+    transition: width 0.4s ease;
+    width: 0%;
+  }
+
+  /* Hero */
+  .hero {
+    padding: 48px 40px 36px;
+    max-width: 860px;
+    margin: 0 auto;
+  }
+
+  .welcome-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    color: var(--mysa-purple);
+    background: #F3EEFF;
+    border: 1px solid #DDD6FE;
+    border-radius: 99px;
+    padding: 4px 12px;
+    margin-bottom: 20px;
+  }
+
+  .hero h1 {
+    font-family: 'Nunito', sans-serif;
+    font-size: 36px;
+    font-weight: 800;
+    letter-spacing: -0.8px;
+    line-height: 1.15;
+    color: var(--text-primary);
+    margin-bottom: 14px;
+  }
+
+  .hero h1 .gradient-text {
+    background: linear-gradient(135deg, var(--mysa-red), var(--mysa-purple), var(--mysa-blue));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero p {
+    font-size: 15px;
+    color: var(--text-secondary);
+    line-height: 1.7;
+    max-width: 560px;
+  }
+
+  /* Main layout */
+  .main {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 0 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  /* Section */
+  .section {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+
+  .section-header {
+    padding: 20px 24px 18px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    cursor: pointer;
+    user-select: none;
+    transition: background 0.15s;
+  }
+
+  .section-header:hover {
+    background: #FAFAFA;
+  }
+
+  .section-icon {
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+
+  .section-title-wrap {
+    flex: 1;
+  }
+
+  .section-title {
+    font-family: 'Nunito', sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    color: var(--text-primary);
+    letter-spacing: -0.2px;
+  }
+
+  .section-meta {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 2px;
+  }
+
+  .section-badge {
+    font-size: 12px;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 99px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    color: var(--text-secondary);
+    white-space: nowrap;
+  }
+
+  .section-badge.done {
+    background: var(--success-bg);
+    border-color: var(--success-border);
+    color: var(--success);
+  }
+
+  .chevron {
+    width: 18px;
+    height: 18px;
+    color: var(--text-muted);
+    transition: transform 0.2s;
+    flex-shrink: 0;
+  }
+
+  .section.collapsed .chevron {
+    transform: rotate(-90deg);
+  }
+
+  .section-body {
+    padding: 8px 0;
+    transition: none;
+  }
+
+  .section.collapsed .section-body {
+    display: none;
+  }
+
+  /* Task item */
+  .task {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 14px 24px;
+    border-bottom: 1px solid var(--border);
+    transition: background 0.12s;
+    cursor: pointer;
+  }
+
+  .task:last-child {
+    border-bottom: none;
+  }
+
+  .task:hover {
+    background: #FAFBFE;
+  }
+
+  .task.completed {
+    background: #FAFEFE;
+  }
+
+  .task-check {
+    width: 20px;
+    height: 20px;
+    border-radius: 6px;
+    border: 1.5px solid var(--border);
+    background: var(--surface);
+    flex-shrink: 0;
+    margin-top: 1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s;
+    cursor: pointer;
+  }
+
+  .task.completed .task-check {
+    background: var(--success);
+    border-color: var(--success);
+  }
+
+  .task-check svg {
+    display: none;
+    width: 12px;
+    height: 12px;
+  }
+
+  .task.completed .task-check svg {
+    display: block;
+  }
+
+  .task-content {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .task-title {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-primary);
+    line-height: 1.4;
+    transition: color 0.15s;
+  }
+
+  .task.completed .task-title {
+    color: var(--text-muted);
+    text-decoration: line-through;
+    text-decoration-color: var(--text-muted);
+  }
+
+  .task-desc {
+    font-size: 12.5px;
+    color: var(--text-secondary);
+    line-height: 1.55;
+    margin-top: 3px;
+  }
+
+  .task.completed .task-desc {
+    color: var(--text-muted);
+  }
+
+  .task-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 8px;
+  }
+
+  .task-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 11.5px;
+    font-weight: 500;
+    color: var(--mysa-blue);
+    background: #EFF6FF;
+    border: 1px solid #BFDBFE;
+    border-radius: 6px;
+    padding: 3px 9px;
+    text-decoration: none;
+    transition: all 0.12s;
+  }
+
+  .task-link:hover {
+    background: #DBEAFE;
+    border-color: #93C5FD;
+    color: #1D4ED8;
+  }
+
+  .task-link svg {
+    width: 10px;
+    height: 10px;
+    flex-shrink: 0;
+  }
+
+  /* Completion banner */
+  .completion-banner {
+    display: none;
+    background: linear-gradient(135deg, #ECFDF5 0%, #F0FDF4 100%);
+    border: 1px solid var(--success-border);
+    border-radius: var(--radius);
+    padding: 28px 32px;
+    text-align: center;
+  }
+
+  .completion-banner.visible {
+    display: block;
+  }
+
+  .completion-banner h2 {
+    font-family: 'Nunito', sans-serif;
+    font-weight: 800;
+    font-size: 22px;
+    color: #065F46;
+    margin-bottom: 8px;
+  }
+
+  .completion-banner p {
+    font-size: 14px;
+    color: #059669;
+    line-height: 1.6;
+  }
+
+  /* Responsive */
+  @media (max-width: 640px) {
+    .header { padding: 20px 20px 16px; flex-wrap: wrap; }
+    .progress-bar-wrap { width: 120px; }
+    .hero { padding: 32px 20px 24px; }
+    .hero h1 { font-size: 28px; }
+    .main { padding: 0 20px; }
+    .task { padding: 12px 18px; }
+    .section-header { padding: 16px 18px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-left">
+    <span class="logo-text">mysa</span>
+    <div class="header-subtitle">Co-op Onboarding — Hardware Team</div>
+  </div>
+  <div class="progress-area">
+    <div class="progress-label"><strong id="done-count">0</strong> / <span id="total-count">0</span> complete</div>
+    <div class="progress-bar-wrap">
+      <div class="progress-bar-fill" id="progress-fill"></div>
+    </div>
+  </div>
+</header>
+
+<div class="hero">
+  <span class="logo-text" style="display:block; margin-bottom:24px; font-size:26px;">mysa</span>
+  <h1>Hey, glad you're here.<br><span class="gradient-text">Let's get you set up.</span></h1>
+  <p>This checklist will walk you through everything you need to do in your first days at Mysa. Check things off as you go — your progress saves automatically in your browser.</p>
+</div>
+
+<main class="main" id="main-checklist">
+
+  <!-- SECTION 1: Settle In -->
+  <div class="section" id="section-settle">
+    <div class="section-header" onclick="toggleSection('section-settle')">
+      <div class="section-icon" style="background:#FFF7ED;">🪑</div>
+      <div class="section-title-wrap">
+        <div class="section-title">Settle In</div>
+        <div class="section-meta">Your desk, your gear, your space</div>
+      </div>
+      <span class="section-badge" id="badge-settle">0 / 3</span>
+      <svg class="chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 7.5l5 5 5-5"/></svg>
+    </div>
+    <div class="section-body">
+      <div class="task" onclick="toggleTask(this)" data-section="settle">
+        <div class="task-check"><svg viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="2"><path d="M2 6l3 3 5-5"/></svg></div>
+        <div class="task-content">
+          <div class="task-title">Set up your desk</div>
+          <div class="task-desc">Get settled into your workstation. Connect your monitor, keyboard, and make yourself comfortable — you'll be here a lot.</div>
+        </div>
+      </div>
+      <div class="task" onclick="toggleTask(this)" data-section="settle">
+        <div class="task-check"><svg viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="2"><path d="M2 6l3 3 5-5"/></svg></div>
+        <div class="task-content">
+          <div class="task-title">Pick up your Mysa t-shirt and stickers</div>
+          <div class="task-desc">Ask your manager or team lead where to grab your welcome kit — t-shirt and Mysa stickers included.</div>
+        </div>
+      </div>
+      <div class="task" onclick="toggleTask(this)" data-section="settle">
+        <div class="task-check"><svg viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="2"><path d="M2 6l3 3 5-5"/></svg></div>
+        <div class="task-content">
+          <div class="task-title">Set up Google Drive for Desktop</div>
+          <div class="task-desc">Download and install Google Drive so you can access Mysa's shared drive files directly from your desktop. Essential for SolidWorks file access.</div>
+          <div class="task-links">
+            <a class="task-link" href="https://support.google.com/a/users/answer/13022292?hl=en" target="_blank" onclick="event.stopPropagation()">
+              <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1.5 8.5l7-7M4 1.5h4.5V6"/></svg>
+              Install Guide
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 2: Software Setup -->
+  <div class="section" id="section-software">
+    <div class="section-header" onclick="toggleSection('section-software')">
+      <div class="section-icon" style="background:#EFF6FF;">💻</div>
+      <div class="section-title-wrap">
+        <div class="section-title">Software Setup</div>
+        <div class="section-meta">Install everything you need to hit the ground running</div>
+      </div>
+      <span class="section-badge" id="badge-software">0 / 7</span>
+      <svg class="chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 7.5l5 5 5-5"/></svg>
+    </div>
+    <div class="section-body">
+      <div class="task" onclick="toggleTask(this)" data-section="software">
+        <div class="task-check"><svg viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="2"><path d="M2 6l3 3 5-5"/></svg></div>
+        <div class="task-content">
+          <div class="task-title">Set up Slack</div>
+          <div class="task-desc">All internal communication runs through Slack. You'll be added to hardware and product channels. Connect Google Calendar to auto-update your status during meetings.</div>
+          <div class="task-links">
+            <a class="task-link" href="https://slack.com/downloads" target="_blank" onclick="event.stopPropagation()">
+              <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1.5 8.5l7-7M4 1.5h4.5V6"/></svg>
+              Download Slack
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="task" onclick="toggleTask(this)" data-section="software">
+        <div class="task-check"><svg viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="2"><path d="M2 6l3 3 5-5"/></svg></div>
+        <div class="task-content">
+          <div class="task-title">Sign into Gemini with your Mysa email</div>
+          <div class="task-desc">Request access to the premium account. Useful for searching specific Drive documents without sorting through every folder.</div>
+          <div class="task-links">
+            <a class="task-link" href="https://gemini.google.com" target="_blank" onclick="event.stopPropagation()">
+              <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1.5 8.5l7-7M4 1.5h4.5V6"/></svg>
+              Open Gemini
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="task" onclick="toggleTask(this)" data-section="software">
+        <div class="task-check"><svg viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="2"><path d="M2 6l3 3 5-5"/></svg></div>
+        <div class="task-content">
+          <div class="task-title">Install and sign into Cursor IDE</div>
+          <div class="task-desc">Used for any internal tooling or coding work. Sign in with your Mysa email and join the Mysa team using the invite link from your manager.</div>
+          <div class="task-links">
+            <a class="task-link" href="https://www.cursor.com/downloads" target="_blank" onclick="event.stopPropagation()">
+              <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1.5 8.5l7-7M4 1.5h4.5V6"/></svg>
+              Download Cursor
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="task" onclick="toggleTask(this)" data-section="software">
+        <div class="task-check"><svg viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="2"><path d="M2 6l3 3 5-5"/></svg></div>
+        <div class="task-content">
+          <div class="task-title">Get access to Asana</div>
+          <div class="task-desc">Project work is tracked here across all products. You'll be invited to the sprint and assigned tasks. Check regularly for new assignments.</div>
+          <div class="task-links">
+            <a class="task-link" href="https://app.asana.com" target="_blank" onclick="event.stopPropagation()">
+              <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1.5 8.5l7-7M4 1.5h4.5V6"/></svg>
+              Open Asana
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="task" onclick="toggleTask(this)" data-section="software">
+        <div class="task-check"><svg viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="2"><path d="M2 6l3 3 5-5"/></svg></div>
+        <div class="task-content">
+          <div class="task-title">Get access to Arena</div>
+          <div class="task-desc">All product documentation and files live here. You'll build BOMs and submit Engineering Change Orders (ECOs) through Arena.</div>
+          <div class="task-links">
+            <a class="task-link" href="https://www.arenasolutions.com" target="_blank" onclick="event.stopPropagation()">
+              <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1.5 8.5l7-7M4 1.5h4.5V6"/></svg>
+              Arena
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="task" onclick="toggleTask(this)" data-section="software">
+        <div class="task-check"><svg viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="2"><path d="M2 6l3 3 5-5"/></svg></div>
+        <div class="task-content">
+          <div class="task-title">Install PrusaSlicer</div>
+          <div class="task-desc">Used to slice STL files before 3D printing. You'll need to select "Original Prusa XL – 5T 0.4 nozzle" as your printer profile.</div>
+          <div class="task-links">
+            <a class="task-link" href="https://www.prusa3d.com/page/prusaslicer_424/" target="_blank" onclick="event.stopPropagation()">
+              <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1.5 8.5l7-7M4 1.5h4.5V6"/></svg>
+              Download PrusaSlicer
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="task" onclick="toggleTask(this)" data-section="software">
+        <div class="task-check"><svg viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="2"><path d="M2 6l3 3 5-5"/></svg></div>
+        <div class="task-content">
+          <div class="task-title">Set up your Notion workspace</div>
+          <div class="task-desc">Great for tracking your own tasks, project timelines, and personal notes on top of what's in Asana. Especially useful in a fast-paced environment with lots of parallel work.</div>
+          <div class="task-links">
+            <a class="task-link" href="https://www.notion.so/desktop" target="_blank" onclick="event.stopPropagation()">
+              <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1.5 8.5l7-7M4 1.5h4.5V6"/></svg>
+              Download Notion
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 3: Google Drive Setup -->
+  <div class="section" id="section-drive">
+    <div class="section-header" onclick="toggleSection('section-drive')">
+      <div class="section-icon" style="background:#F0FDF4;">📁</div>
+      <div class="section-title-wrap">
+        <div class="section-title">Google Drive Setup</div>
+        <div class="section-meta">Organize your work term folder in the Mysa Shared Drive</div>
+      </div>
+      <span class="section-badge" id="badge-drive">0 / 2</span>
+      <svg class="chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 7.5l5 5 5-5"/></svg>
+    </div>
+    <div class="section-body">
+      <div class="task" onclick="toggleTask(this)" data-section="drive">
+        <div class="task-check"><svg viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="2"><path d="M2 6l3 3 5-5"/></svg></div>
+        <div class="task-content">
+          <div class="task-title">Create your work term folder</div>
+          <div class="task-desc">Navigate to Shared Drive → Hardware → 9. Work Term. Create a folder with your name. Inside, add subfolders like SLDPRT for SolidWorks parts and STL for print files.</div>
+        </div>
+      </div>
+      <div class="task" onclick="toggleTask(this)" data-section="drive">
+        <div class="task-check"><svg viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="2"><path d="M2 6l3 3 5-5"/></svg></div>
+        <div class="task-content">
+          <div class="task-title">Explore the Products folder</div>
+          <div class="task-desc">Go to Shared Drive → Hardware → 1. Products to browse all past and ongoing Mysa products. This is where most of your project files will live day-to-day.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 4: SolidWorks Training -->
+  <div class="section" id="section-solidworks">
+    <div class="section-header" onclick="toggleSection('section-solidworks')">
+      <div class="section-icon" style="background:#FFF1F2;">🧊</div>
+      <div class="section-title-wrap">
+        <div class="section-title">SolidWorks Training</div>
+        <div class="section-meta">Get comfortable with the primary CAD tool</div>
+      </div>
+      <span class="section-badge" id="badge-solidworks">0 / 4</span>
+      <svg class="chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 7.5l5 5 5-5"/></svg>
+    </div>
+    <div class="section-body">
+      <div class="task" onclick="toggleTask(this)" data-section="solidworks">
+        <div class="task-check"><svg viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="2"><path d="M2 6l3 3 5-5"/></svg></div>
+        <div class="task-content">
+          <div class="task-title">Watch the SolidWorks beginner tutorial</div>
+          <div class="task-desc">If you're new or rusty, start here. Get comfortable with creating parts, assemblies, and drawings before diving into Mysa product files.</div>
+          <div class="task-links">
+            <a class="task-link" href="https://www.youtube.com/watch?v=K7pTnLcWsrw" target="_blank" onclick="event.stopPropagation()">
+              <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1.5 8.5l7-7M4 1.5h4.5V6"/></svg>
+              Beginner Tutorial
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="task" onclick="toggleTask(this)" data-section="solidworks">
+        <div class="task-check"><svg viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="2"><path d="M2 6l3 3 5-5"/></svg></div>
+        <div class="task-content">
+          <div class="task-title">Understand the file types used at Mysa</div>
+          <div class="task-desc">SLDPRT is your main working file. STL is for 3D printing and JLC orders. STEP is for exporting to Arena for suppliers. Know when to use each.</div>
+        </div>
+      </div>
+      <div class="task" onclick="toggleTask(this)" data-section="solidworks">
+        <div class="task-check"><svg viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="2"><path d="M2 6l3 3 5-5"/></svg></div>
+        <div class="task-content">
+          <div class="task-title">Review tolerancing and fit guidelines</div>
+          <div class="task-desc">Standard mating parts get 0.125mm clearance per side (0.25mm total). Critical fit parts use 0.25mm on one side as a safety buffer for printer inaccuracies and material expansion.</div>
+        </div>
+      </div>
+      <div class="task" onclick="toggleTask(this)" data-section="solidworks">
+        <div class="task-check"><svg viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="2"><path d="M2 6l3 3 5-5"/></svg></div>
+        <div class="task-content">
+          <div class="task-title">Build a practice model and export it</div>
+          <div class="task-desc">Design something simple from scratch — a bracket, enclosure, or organizer. Export as STL and save your SLDPRT to your work term folder. This is your first real deliverable!</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 5: 3D Printing -->
+  <div class="section" id="section-printing">
+    <div class="section-header" onclick="toggleSection('section-printing')">
+      <div class="section-icon" style="background:#F5F3FF;">🖨️</div>
+      <div class="section-title-wrap">
+        <div class="section-title">3D Printing</div>
+        <div class="section-meta">Learn both the FDM (Prusa) and SLA (resin) printers</div>
+      </div>
+      <span class="section-badge" id="badge-printing">0 / 6</span>
+      <svg class="chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 7.5l5 5 5-5"/></svg>
+    </div>
+    <div class="section-body">
+      <div class="task" onclick="toggleTask(this)" data-section="printing">
+        <div class="task-check"><svg viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="2"><path d="M2 6l3 3 5-5"/></svg></div>
+        <div class="task-content">
+          <div class="task-title">Read the Prusa XL printer setup guide</div>
+          <div class="task-desc">Learn how to check the print bed, load/unload filament, and prepare the printer before starting a job. The print bed is magnetic — don't forget to check it's seated properly.</div>
+          <div class="task-links">
+            <a class="task-link" href="https://help.prusa3d.com/category/original-prusa-xl_638" target="_blank" onclick="event.stopPropagation()">
+              <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1.5 8.5l7-7M4 1.5h4.5V6"/></svg>
+              Prusa XL Help
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="task" onclick="toggleTask(this)" data-section="printing">
+        <div class="task-check"><svg viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="2"><path d="M2 6l3 3 5-5"/></svg></div>
+        <div class="task-content">
+          <div class="task-title">Slice your first model in PrusaSlicer</div>
+          <div class="task-desc">Import your practice STL. Set PLA settings: bed 50–60°C, nozzle 215°C, layer height ≤0.2mm. Orient the model on its flattest face to minimize supports. Slice and review the preview.</div>
+        </div>
+      </div>
+      <div class="task" onclick="toggleTask(this)" data-section="printing">
+        <div class="task-check"><svg viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="2"><path d="M2 6l3 3 5-5"/></svg></div>
+        <div class="task-content">
+          <div class="task-title">Complete your first Prusa print</div>
+          <div class="task-desc">Save your GCode to the Prusa USB, insert it into the printer, and select your file. Stay and watch the first 1–2 layers to make sure adhesion looks good before walking away.</div>
+        </div>
+      </div>
+      <div class="task" onclick="toggleTask(this)" data-section="printing">
+        <div class="task-check"><svg viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="2"><path d="M2 6l3 3 5-5"/></svg></div>
+        <div class="task-content">
+          <div class="task-title">Read the resin (Form 3 SLA) safety requirements</div>
+          <div class="task-desc">Resin is a sensitizer. Before touching anything: nitrile gloves (in the toolbox drawer), safety glasses, and lab coat are mandatory. Tie back long hair, remove dangling jewelry.</div>
+        </div>
+      </div>
+      <div class="task" onclick="toggleTask(this)" data-section="printing">
+        <div class="task-check"><svg viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="2"><path d="M2 6l3 3 5-5"/></svg></div>
+        <div class="task-content">
+          <div class="task-title">Learn the PreForm software workflow</div>
+          <div class="task-desc">Open your STL in PreForm. Select "GroovyLark" as the printer. Use the Magic Wand (one-click auto-orient and support generation). Upload to the printer via Wi-Fi.</div>
+          <div class="task-links">
+            <a class="task-link" href="https://formlabs.com/software/#preform" target="_blank" onclick="event.stopPropagation()">
+              <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1.5 8.5l7-7M4 1.5h4.5V6"/></svg>
+              PreForm Download
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="task" onclick="toggleTask(this)" data-section="printing">
+        <div class="task-check"><svg viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="2"><path d="M2 6l3 3 5-5"/></svg></div>
+        <div class="task-content">
+          <div class="task-title">Learn the wash and cure process</div>
+          <div class="task-desc">After printing: scrape excess resin back into the tank, wash in Form Wash (10–15 min IPA), let fully dry, remove supports with flush cutters, then cure in Form Cure. Never mix resin types.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 6: Arena Training -->
+  <div class="section" id="section-arena">
+    <div class="section-header" onclick="toggleSection('section-arena')">
+      <div class="section-icon" style="background:#FFFBEB;">📋</div>
+      <div class="section-title-wrap">
+        <div class="section-title">Arena Training</div>
+        <div class="section-meta">Product lifecycle management and BOMs</div>
+      </div>
+      <span class="section-badge" id="badge-arena">0 / 5</span>
+      <svg class="chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 7.5l5 5 5-5"/></svg>
+    </div>
+    <div class="section-body">
+      <div class="task" onclick="toggleTask(this)" data-section="arena">
+        <div class="task-check"><svg viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="2"><path d="M2 6l3 3 5-5"/></svg></div>
+        <div class="task-content">
+          <div class="task-title">Watch the Arena video tutorials</div>
+          <div class="task-desc">In Arena, find the Help section (the ? circle icon). Watch: Getting Started → Searching in Arena → Items → BOMs → Files → Suppliers and Sharing. Take your time with these.</div>
+          <div class="task-links">
+            <a class="task-link" href="https://www.arenasolutions.com/resources/videos/" target="_blank" onclick="event.stopPropagation()">
+              <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1.5 8.5l7-7M4 1.5h4.5V6"/></svg>
+              Arena Video Tutorials
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="task" onclick="toggleTask(this)" data-section="arena">
+        <div class="task-check"><svg viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="2"><path d="M2 6l3 3 5-5"/></svg></div>
+        <div class="task-content">
+          <div class="task-title">Understand Mysa's part number system</div>
+          <div class="task-desc">900- = Finished Goods. 800- = Assemblies (850- packaging, 810- product, 820- subassembly). 472- = screws/bolts, 450- = nuts. Each part category has its own PN prefix.</div>
+        </div>
+      </div>
+      <div class="task" onclick="toggleTask(this)" data-section="arena">
+        <div class="task-check"><svg viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="2"><path d="M2 6l3 3 5-5"/></svg></div>
+        <div class="task-content">
+          <div class="task-title">Build a practice BOM in the Sandbox</div>
+          <div class="task-desc">Make sure you're in the green "MYSA Sandbox" Arena environment. Go to bricklink.com, pick a simple 15–20 piece Lego set, and document it as a practice product assembly with a full BOM.</div>
+          <div class="task-links">
+            <a class="task-link" href="https://www.bricklink.com/v2/main.page" target="_blank" onclick="event.stopPropagation()">
+              <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1.5 8.5l7-7M4 1.5h4.5V6"/></svg>
+              BrickLink
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="task" onclick="toggleTask(this)" data-section="arena">
+        <div class="task-check"><svg viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="2"><path d="M2 6l3 3 5-5"/></svg></div>
+        <div class="task-content">
+          <div class="task-title">Learn how to submit an ECO</div>
+          <div class="task-desc">ECOs (Engineering Change Orders) inform collaborators of changes and request approval. Practice the flow: update the BOM → navigate to Changes → Create → Engineering Change Order → add affected items → submit. Always check "Share with Suppliers".</div>
+        </div>
+      </div>
+      <div class="task" onclick="toggleTask(this)" data-section="arena">
+        <div class="task-check"><svg viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="2"><path d="M2 6l3 3 5-5"/></svg></div>
+        <div class="task-content">
+          <div class="task-title">Practice the Slack ECO notification flow</div>
+          <div class="task-desc">After submitting an ECO, copy the category → description info from Arena and paste it as a code block in the appropriate Slack channel. Tag the relevant managers. This is standard process for every ECO.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Completion Banner -->
+  <div class="completion-banner" id="completion-banner">
+    <h2>You're all set! 🎉</h2>
+    <p>You've completed all your onboarding tasks. Welcome to the Mysa Hardware Team — now go build something great.</p>
+  </div>
+
+</main>
+
+<script>
+  const STORAGE_KEY = 'mysa_onboarding_v2';
+
+  function loadState() {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      return raw ? JSON.parse(raw) : {};
+    } catch { return {}; }
+  }
+
+  function saveState(state) {
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch {}
+  }
+
+  function getTaskId(taskEl) {
+    const section = taskEl.dataset.section;
+    const tasks = Array.from(taskEl.parentElement.querySelectorAll('.task'));
+    const idx = tasks.indexOf(taskEl);
+    return section + '_' + idx;
+  }
+
+  function toggleTask(taskEl) {
+    const state = loadState();
+    const id = getTaskId(taskEl);
+    state[id] = !state[id];
+    saveState(state);
+    applyState(state);
+  }
+
+  function applyState(state) {
+    const allTasks = document.querySelectorAll('.task');
+    allTasks.forEach(task => {
+      const id = getTaskId(task);
+      if (state[id]) {
+        task.classList.add('completed');
+      } else {
+        task.classList.remove('completed');
+      }
+    });
+    updateProgress();
+  }
+
+  function updateProgress() {
+    const allTasks = document.querySelectorAll('.task');
+    const total = allTasks.length;
+    const done = document.querySelectorAll('.task.completed').length;
+
+    document.getElementById('done-count').textContent = done;
+    document.getElementById('total-count').textContent = total;
+    const pct = total > 0 ? (done / total) * 100 : 0;
+    document.getElementById('progress-fill').style.width = pct.toFixed(1) + '%';
+
+    // Section badges
+    const sections = ['settle', 'software', 'drive', 'solidworks', 'printing', 'arena'];
+    sections.forEach(s => {
+      const sectionTasks = document.querySelectorAll('.task[data-section="' + s + '"]');
+      const sectionDone = Array.from(sectionTasks).filter(t => t.classList.contains('completed')).length;
+      const badge = document.getElementById('badge-' + s);
+      if (badge) {
+        badge.textContent = sectionDone + ' / ' + sectionTasks.length;
+        if (sectionDone === sectionTasks.length) {
+          badge.classList.add('done');
+        } else {
+          badge.classList.remove('done');
+        }
+      }
+    });
+
+    // Completion banner
+    const banner = document.getElementById('completion-banner');
+    if (done === total && total > 0) {
+      banner.classList.add('visible');
+    } else {
+      banner.classList.remove('visible');
+    }
+  }
+
+  function toggleSection(id) {
+    const section = document.getElementById(id);
+    section.classList.toggle('collapsed');
+  }
+
+  // Init
+  applyState(loadState());
+</script>
+</body>
+</html>
